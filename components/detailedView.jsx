@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './detailedView.scss';
 
 export default class DetailedView extends React.Component {
     constructor() {
@@ -29,12 +30,12 @@ export default class DetailedView extends React.Component {
         var innerHtml = { __html: this.state.description };
         var dateString = new Date(this.state.created_at).toLocaleString('ru');
         return (
-            <div>
-                <h2>{this.state.name}</h2>
+            <div className="details">
+                <h1 className="header">{this.state.name}</h1>
                 <div>
-                    <span>{dateString}</span> 
-                    <p><strong>Подписалось: {this.state.subscribers_count} человек</strong></p>
-                    <div dangerouslySetInnerHTML={innerHtml} ></div>
+                    <span className="date">{dateString}</span>
+                    <p className="subscribers"><strong>Подписалось: {this.state.subscribers_count} человек</strong></p>
+                    <div className="description" dangerouslySetInnerHTML={innerHtml} ></div>
                 </div>
             </div>
         );

@@ -10,11 +10,11 @@ export default class ListElement extends React.Component {
 
   render() {
     return (
-      <li>
+      <div className="list-element">
         <Link to={`/event/${this.props.eventId}`}>
           <h2>{this.props.name}</h2>
         </Link>
-      </li>
+      </div>
     );
   }
 }

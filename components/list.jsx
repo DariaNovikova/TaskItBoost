@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ListElement from './listElement.jsx';
+import './list.scss';
 
 export default class List extends React.Component {
     constructor() {
@@ -29,9 +30,10 @@ export default class List extends React.Component {
                 eventId={el.id} />)
 
         return (
-            <ul>
+            <div className="list">
+                <h1 className="header">Список мероприятий:</h1>
                 {elements}
-            </ul>
+            </div>
         );
     }
 }

@@ -1,0 +1,40 @@
+body{
+    width:100%;
+    margin: 0;
+    font-family: Arial;
+}
+
+.header{
+        text-align: center;
+        padding:20px;
+        background: #D3F8DE;
+}
+
+.details{
+    width:80%;
+    margin: 0 auto;
+
+    .date{
+        float:right;
+    }
+
+    .description{
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px 10%;
+        border: 1px solid #81EAA5;
+        box-sizing: border-box;
+        color:#2B2C2A;
+    }
+
+    a{
+        text-decoration: none;
+        color:#1F9207;
+        font-weight: bold;
+    }
+
+    a:hover{
+        text-decoration: underline;
+    }
+
+}
