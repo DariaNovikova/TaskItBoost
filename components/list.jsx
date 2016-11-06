@@ -1,34 +1,30 @@
 import React from 'react';
-import axios from 'axios';
 import ListElement from './listElement.jsx';
 import './list.scss';
+import { connect } from 'react-redux';
+import { getAllEvents } from '../store/actions.jsx'
 
-export default class List extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            items: []
-        }
+function mapStateToProps(state, ownProps) {
+    return {
+        items: state.events
+    }
+}
+
+export class List extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
     componentDidMount() {
-        axios.get('http://api.itboost.org:88/app_dev.php/api/events')
-            .then(axiosResponse => axiosResponse.data.response)
-            .then(response => this.setState({
-                items: response.items
-            }))
-
-            .catch(error => console.log(error));
+        this.props.dispatch(getAllEvents());
     }
 
     render() {
-
-        var elements = this.state.items.map(el =>
+        var elements = this.props.items.map(el =>
             <ListElement name={el.name}
                 date={el.created_at}
                 key={el.id}
                 eventId={el.id} />)
-
         return (
             <div className="list">
                 <h1 className="header">Список мероприятий:</h1>
@@ -37,3 +33,5 @@ export default class List extends React.Component {
         );
     }
 }
+
+export default connect(mapStateToProps)(List);

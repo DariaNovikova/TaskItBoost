@@ -1,43 +1,41 @@
 import React from 'react';
 import axios from 'axios';
 import './detailedView.scss';
+import { connect } from 'react-redux';
+import { getEvent } from '../store/actions.jsx'
 
-export default class DetailedView extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            description: '',
-            subscribers_count: 0,
-            created_at: ''
-        }
+function mapStateToProps(props, ownProps) {
+    debugger;
+    var id = ownProps.params.eventId;
+    var event = props.events.find(e => e.id == id);
+    return {...event, id };
+}
+
+export class DetailedView extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
     componentDidMount() {
-        axios.get(`http://api.itboost.org:88/app_dev.php/api/event/${this.props.params.eventId}`)
-            .then(axiosResponse => axiosResponse.data.response.event)
-            .then(response => this.setState({
-                name: response.name,
-                description: response.description,
-                subscribers_count: response.subscribers_count,
-                created_at: response.created_at
-            }))
-
-            .catch(error => console.log(error));
+        if (!this.props.event) {
+            this.props.dispatch(getEvent(this.props.id));
+        }
     }
 
     render() {
-        var innerHtml = { __html: this.state.description };
-        var dateString = new Date(this.state.created_at).toLocaleString('ru');
+        var innerHtml = { __html: this.props.description };
+        var dateString = new Date(this.props.created_at).toLocaleString('ru');
         return (
             <div className="details">
-                <h1 className="header">{this.state.name}</h1>
+                <h1 className="header">{this.props.name}</h1>
                 <div>
                     <span className="date">{dateString}</span>
-                    <p className="subscribers"><strong>Подписалось: {this.state.subscribers_count} человек</strong></p>
+                    <p className="subscribers"><strong>Подписалось: {this.props.subscribers_count}человек</strong></p>
                     <div className="description" dangerouslySetInnerHTML={innerHtml} ></div>
                 </div>
             </div>
         );
     }
-}        
+}
+
+export default connect(mapStateToProps)(DetailedView);
