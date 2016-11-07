@@ -7,7 +7,7 @@ export default function eventReducer(state = [], action) {
                 return [action.event];
 
             var updated = [];
-            for (e in state) {
+            for (var e in state) {
                 updated.push((e.id === action.event.id) ? action.event : e);
             }
             return updated;
